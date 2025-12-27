@@ -239,3 +239,4 @@ sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
 ```
 </details>
 
+- [Updated Kickstart to my version following this link](https://www.youtube.com/watch?v=KYDG3AHgYEs)
