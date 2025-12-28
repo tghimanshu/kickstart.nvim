@@ -136,6 +136,7 @@ require('lazy').setup({
   require 'plugins.bufferline',
   require 'plugins.colortheme',
   require 'plugins.comment',
+  require 'plugins.copilot',
   require 'plugins.gitsigns',
   require 'plugins.indent-blankline',
   require 'plugins.lsp',
