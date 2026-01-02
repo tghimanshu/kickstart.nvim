@@ -127,38 +127,40 @@ return {
       workspaces = {
         {
           name = 'leetcode',
-          path = vim.fn.expand '~/leetcode',
+          path = vim.fn.expand '/mnt/c/Users/himan/Documents/Obsidian Vault/leetcode',
         },
       },
 
       ui = { enable = true },
       legacy_commands = false,
 
-      note_frontmatter_func = function(note)
-        local now = os.date '%Y-%m-%d %H:%M'
-        local title = note.title
+      frontmatter = {
+          func = function(note)
+            local now = os.date '%Y-%m-%d %H:%M'
+            local title = note.title
 
-        if note.aliases and #note.aliases > 0 then
-          title = note.aliases[1]
-        elseif note.title then
-          note:add_alias(note.title)
-        end
+            if note.aliases and #note.aliases > 0 then
+              title = note.aliases[1]
+            elseif note.title then
+              note:add_alias(note.title)
+            end
 
-        local out = {
-          title = title,
-          id = note.id,
-          aliases = note.aliases,
-          tags = note.tags,
-          created = now,
-          modified = now,
-        }
+            local out = {
+              title = title,
+              id = note.id,
+              aliases = note.aliases,
+              tags = note.tags,
+              created = now,
+              modified = now,
+            }
 
-        if note.metadata and note.metadata.created then
-          out.created = note.metadata.created
-        end
+            if note.metadata and note.metadata.created then
+              out.created = note.metadata.created
+            end
 
-        return out
-      end,
+            return out
+          end,
+    },
 
       callbacks = {
         pre_write_note = function(_, note)
