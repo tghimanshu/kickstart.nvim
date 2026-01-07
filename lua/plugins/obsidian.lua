@@ -1,24 +1,27 @@
 return {
-
   'obsidian-nvim/obsidian.nvim',
   version = '*',
   lazy = false,
-
-  -- Load Obsidian.nvim for all markdown files BEFORE ftplugins run
   ft = 'markdown',
-
   dependencies = {
     'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
   },
   config = function()
-    local obsidian = require 'obsidian'
     local curl = require 'plenary.curl'
     local Path = require 'plenary.path'
 
     -------------------------------------------------------------------------
-    -- Static output directory for LeetCode notes
+    -- Dynamic Path Setup (Current Working Directory)
     -------------------------------------------------------------------------
-    local PROBLEMS_PATH = vim.fn.expand 'leetcode'
+    -- This gets the directory where you started Neovim
+    local CWD = vim.fn.getcwd()
+    local PROBLEMS_PATH = CWD
+
+    -- Ensure the leetcode subdirectory exists
+    -- if vim.fn.isdirectory(PROBLEMS_PATH) == 0 then
+    --   vim.fn.mkdir(PROBLEMS_PATH, 'p')
+    -- end
 
     -------------------------------------------------------------------------
     -- LeetCode Problem Creator
@@ -35,17 +38,15 @@ return {
           callback = function(response)
             vim.schedule(function()
               if response.status ~= 200 then
-                print('Error fetching problem data: ' .. response.status)
+                print('Error: API returned ' .. response.status)
                 return
               end
 
               local ok, data = pcall(vim.json.decode, response.body)
-              if not ok or type(data) ~= 'table' then
-                print 'Invalid API response'
+              if not ok then
                 return
               end
 
-              -- Find matching problem
               local problem = nil
               for _, p in ipairs(data) do
                 if tostring(p.frontend_id) == tostring(problem_id) then
@@ -59,32 +60,17 @@ return {
                 return
               end
 
-              -------------------------------------------------------------------
-              -- Ensure directory exists
-              -------------------------------------------------------------------
-              vim.fn.mkdir(PROBLEMS_PATH, 'p')
-
-              -------------------------------------------------------------------
-              -- Build filename
-              -------------------------------------------------------------------
-              local filename = string.format('%s/%s-%s.md', PROBLEMS_PATH, problem.frontend_id, problem.title_slug)
-
-              -------------------------------------------------------------------
-              -- Create file safely
-              -------------------------------------------------------------------
-              Path:new(filename):write('', 'w')
-
-              -------------------------------------------------------------------
-              -- Open & populate
-              -------------------------------------------------------------------
-              vim.cmd('edit ' .. filename)
+              -- File setup
+              local filename = string.format('%s/%03d-%s.md', PROBLEMS_PATH, problem.frontend_id, problem.title_slug)
 
               local content = {
                 '# ' .. problem.frontend_id .. '. ' .. problem.title,
-                '',
+                '---',
                 '**Difficulty**: ' .. problem.difficulty,
                 '**Date**: ' .. os.date '%Y-%m-%d',
-                '',
+                '**url**: ' .. (problem.url or 'https://leetcode.com/problems/' .. problem.title_slug),
+                '**tags**: [leetcode]',
+                '---',
                 '## Problem Statement',
                 problem.url,
                 '',
@@ -98,11 +84,15 @@ return {
                 '',
                 '## 🧪 Edge Cases',
                 '- ',
+                '',
+                '## ⌚ Complexities',
+                '- Time Complexity: ',
+                '- Space Complexity: ',
               }
 
-              vim.api.nvim_buf_set_lines(0, 0, -1, false, content)
-
-              print('Created problem note: ' .. filename)
+              Path:new(filename):write(table.concat(content, '\n'), 'w')
+              vim.cmd('edit ' .. filename)
+              print('Saved to: ./' .. problem.frontend_id .. '-' .. problem.title_slug .. '.md')
             end)
           end,
         })
@@ -110,65 +100,23 @@ return {
     end
 
     -------------------------------------------------------------------------
-    -- Keymaps
+    -- Obsidian.nvim Minimal Setup
     -------------------------------------------------------------------------
-    vim.keymap.set('n', '<leader>nl', create_leetcode_problem, {
-      desc = 'New LeetCode problem note',
-    })
-
-    vim.keymap.set('n', '<leader>na', ':ObsidianTagsActive<CR>', {
-      desc = 'Find active notes',
-    })
-
-    -------------------------------------------------------------------------
-    -- Obsidian.nvim Setup
-    -------------------------------------------------------------------------
-    obsidian.setup {
+    require('obsidian').setup {
       workspaces = {
         {
-          name = 'leetcode',
-          path = vim.fn.expand '/mnt/c/Users/himan/Documents/Obsidian Vault/leetcode',
+          name = 'leetcode-local',
+          path = CWD, -- Set workspace to current folder
         },
       },
-
-      ui = { enable = true },
       legacy_commands = false,
-
-      frontmatter = {
-          func = function(note)
-            local now = os.date '%Y-%m-%d %H:%M'
-            local title = note.title
-
-            if note.aliases and #note.aliases > 0 then
-              title = note.aliases[1]
-            elseif note.title then
-              note:add_alias(note.title)
-            end
-
-            local out = {
-              title = title,
-              id = note.id,
-              aliases = note.aliases,
-              tags = note.tags,
-              created = now,
-              modified = now,
-            }
-
-            if note.metadata and note.metadata.created then
-              out.created = note.metadata.created
-            end
-
-            return out
-          end,
-    },
-
-      callbacks = {
-        pre_write_note = function(_, note)
-          if note.metadata then
-            note.metadata.modified = os.date '%Y-%m-%d %H:%M'
-          end
-        end,
-      },
+      ui = { enable = true },
+      completion = { nvim_cmp = true },
     }
+
+    -- Keymaps
+    vim.keymap.set('n', '<leader>nl', create_leetcode_problem, { desc = 'LeetCode: New Note' })
+    -- Search specifically within the leetcode folder
+    vim.keymap.set('n', '<leader>ns', ':Telescope find_files cwd=' .. PROBLEMS_PATH .. '<CR>', { desc = 'LeetCode: Search Notes' })
   end,
 }
