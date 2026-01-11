@@ -118,5 +118,7 @@ return {
     vim.keymap.set('n', '<leader>nl', create_leetcode_problem, { desc = 'LeetCode: New Note' })
     -- Search specifically within the leetcode folder
     vim.keymap.set('n', '<leader>ns', ':Telescope find_files cwd=' .. PROBLEMS_PATH .. '<CR>', { desc = 'LeetCode: Search Notes' })
+
+    vim.opt.conceallevel = 2
   end,
 }

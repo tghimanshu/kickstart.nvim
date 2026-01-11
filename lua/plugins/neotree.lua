@@ -1,6 +1,7 @@
 return {
   'nvim-neo-tree/neo-tree.nvim',
   branch = 'v3.x',
+  lazy = false,
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons',
@@ -28,7 +29,7 @@ return {
   },
   config = function()
     require('neo-tree').setup {
-      close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
+      close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = 'rounded',
       enable_git_status = true,
       enable_diagnostics = true,
@@ -300,10 +301,29 @@ return {
           },
         },
       },
+
+      -- NOTE: Copied from config: https://github.com/nvim-neo-tree/neo-tree.nvim/wiki/Recipes#auto-close-on-open-file
+      event_handlers = {
+
+        {
+          event = 'file_open_requested',
+          handler = function()
+            -- auto close
+            -- vim.cmd("Neotree close")
+            -- OR
+            require('neo-tree.command').execute { action = 'close' }
+          end,
+        },
+      },
     }
 
     vim.cmd [[nnoremap \ :Neotree reveal<cr>]]
     vim.keymap.set('n', '<leader>e', ':Neotree toggle position=left<CR>', { noremap = true, silent = true }) -- focus file explorer
     vim.keymap.set('n', '<leader>ngs', ':Neotree float git_status<CR>', { noremap = true, silent = true }) -- open git status window
   end,
+  ---@module 'neo-tree'
+  ---@type neotree.Config
+  opts = {
+    -- options go here
+  },
 }
