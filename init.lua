@@ -132,6 +132,7 @@ rtp:prepend(lazypath)
 --
 require('lazy').setup({
   -- Installing Plugins from files
+  require 'plugins.alpha',
   require 'plugins.autocompletion',
   require 'plugins.bufferline',
   require 'plugins.colortheme',
