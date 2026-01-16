@@ -61,6 +61,16 @@ return {
     -- Powerful Git integration for Vim
     'tpope/vim-fugitive',
     config = function()
+      local opts = { noremap = true }
+
+      vim.keymap.set('n', '<leader>ga', function()
+        vim.cmd.Git 'add .'
+      end, opts)
+
+      vim.keymap.set('n', '<leader>gc', function()
+        vim.cmd.Git 'commit'
+      end, opts)
+
       vim.keymap.set('n', '<leader>gp', function()
         vim.cmd.Git 'push'
       end, opts)
@@ -221,6 +231,19 @@ return {
   { -- markdown preview
     'OXY2DEV/markview.nvim',
     lazy = false,
+    -- Disable automatic previews.
+    config = function()
+      require('markview').setup {
+        preview = {
+          -- "modes" defines where the plugin is enabled in general
+          modes = { 'n', 'i', 'no', 'c' },
+
+          -- "hybrid_modes" defines where the active line/block is UN-rendered
+          -- Add "n" here to disable preview on the active line in Normal mode
+          hybrid_modes = { 'n', 'i' },
+        },
+      }
+    end,
   },
   { -- great for solving leetcode in neovim
     'kawre/leetcode.nvim',

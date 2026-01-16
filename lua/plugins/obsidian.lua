@@ -26,6 +26,65 @@ return {
     -------------------------------------------------------------------------
     -- LeetCode Problem Creator
     -------------------------------------------------------------------------
+    local function create_leetcode_daily_problem()
+      print 'Fetching daily problem data...'
+
+      curl.get('https://leetcode-api-pied.vercel.app/daily', {
+        callback = function(response)
+          vim.schedule(function()
+            if response.status ~= 200 then
+              print('Error: API returned ' .. response.status)
+              return
+            end
+
+            local ok, problem = pcall(vim.json.decode, response.body)
+            if not ok then
+              return
+            end
+
+            if not problem then
+              print('Problem ' .. problem_id .. ' not found')
+              return
+            end
+
+            local problem_id = problem.question.questionFrontendId
+
+            -- File setup
+            local filename = string.format('%s/%03d-%s.md', PROBLEMS_PATH, problem.question.questionFrontendId, problem.question.titleSlug)
+
+            local content = {
+              '# ' .. problem.question.questionFrontendId .. '. ' .. problem.question.title,
+              '---',
+              '**Difficulty**: ' .. problem.question.difficulty,
+              '**Date**: ' .. os.date '%Y-%m-%d' .. ' (Daily)',
+              '**url**: ' .. (problem.url or 'https://leetcode.com/problems/' .. problem.question.titleSlug),
+              '**tags**: [leetcode]',
+              '---',
+              '## Problem Statement',
+              '',
+              '## 🧠 Idea (1–2 sentences)',
+              '<!-- What was the core insight? -->',
+              '',
+              '## 🔧 Approach',
+              '<!-- Bullets. No paragraphs. -->',
+              '',
+              '- ',
+              '',
+              '## 🧪 Edge Cases',
+              '- ',
+              '',
+              '## ⌚ Complexities',
+              '- Time Complexity: ',
+              '- Space Complexity: ',
+            }
+
+            Path:new(filename):write(table.concat(content, '\n'), 'w')
+            vim.cmd('edit ' .. filename)
+            print('Saved to: ./' .. problem.question.questionFrontendId .. '-' .. problem.question.titleSlug .. '.md')
+          end)
+        end,
+      })
+    end
     local function create_leetcode_problem()
       vim.ui.input({ prompt = 'Enter LeetCode problem number: ' }, function(problem_id)
         if not problem_id or problem_id == '' then
@@ -116,6 +175,7 @@ return {
 
     -- Keymaps
     vim.keymap.set('n', '<leader>nl', create_leetcode_problem, { desc = 'LeetCode: New Note' })
+    vim.keymap.set('n', '<leader>nd', create_leetcode_daily_problem, { desc = 'LeetCode: New Daily' })
     -- Search specifically within the leetcode folder
     vim.keymap.set('n', '<leader>ns', ':Telescope find_files cwd=' .. PROBLEMS_PATH .. '<CR>', { desc = 'LeetCode: Search Notes' })
 
