@@ -13,6 +13,7 @@ return {
     -- Formatters & linters for mason to install
     require('mason-null-ls').setup {
       ensure_installed = {
+        'clang-format',
         'prettier', -- ts/js formatter
         'eslint_d', -- ts/js linter
         'shfmt', -- Shell formatter
@@ -24,6 +25,7 @@ return {
     }
 
     local sources = {
+      formatting.clang_format,
       diagnostics.checkmake,
       formatting.prettier.with { filetypes = { 'html', 'json', 'yaml', 'markdown' } },
       formatting.stylua,
