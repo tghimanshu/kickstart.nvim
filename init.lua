@@ -1,7 +1,7 @@
 --[[
 
 =====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
+=========================== WELCOME ABOARD! =========================
 =====================================================================
 ========                                    .-----.          ========
 ========         .----------------------.   | === |          ========
@@ -38,61 +38,6 @@ require 'core.keymaps'
 require 'core.snippets'
 
 vim.g.have_nerd_font = true -- Set to true if you have a Nerd Font installed and selected in the terminal
-
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
--- See `:help vim.o`
-
-vim.o.number = true -- Make line numbers default
-vim.o.relativenumber = true -- Add relative line numbers
-vim.o.mouse = 'a' -- enable mouse mode
-
-vim.o.showmode = false -- Don't show the mode, since it's already in the status line
-
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
-
-vim.o.breakindent = true -- Enable break indent
-
-vim.o.undofile = true -- Save undo history
-
-vim.o.ignorecase = true -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.o.smartcase = true
-
-vim.o.shiftwidth = 4 -- default indentation and use spaces when tab is used
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.expandtab = true
-
-vim.o.signcolumn = 'yes' -- Keep signcolumn on by default
-
-vim.o.updatetime = 250 -- Decrease update time
-
-vim.o.timeoutlen = 300 -- Decrease mapped sequence wait time
-
-vim.o.splitright = true -- Configure how new splits should be opened
-vim.o.splitbelow = true
-
-vim.o.list = true -- Sets how neovim will display certain whitespace characters in the editor.
-vim.opt.listchars = {
-  tab = '» ',
-  trail = '·',
-  nbsp = '␣',
-} --  vim.opt is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
-
-vim.o.inccommand = 'split' -- Preview substitutions live, as you type!
-
-vim.o.cursorline = true -- Show which line your cursor is on
-
-vim.o.scrolloff = 12 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.sidescrolloff = 10
-
-vim.o.confirm = true -- asks to save on :q
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -131,6 +76,7 @@ rtp:prepend(lazypath)
 --    :Lazy update
 --
 require('lazy').setup({
+
   -- Installing Plugins from files
   require 'plugins.alpha',
   require 'plugins.autocompletion',
