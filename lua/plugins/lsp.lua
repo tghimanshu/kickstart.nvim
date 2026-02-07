@@ -145,6 +145,7 @@ return {
       local servers = {
         angularls = {},
         clangd = {},
+        codelldb = {},
         ts_ls = {},
         ruff = {},
         pylsp = {

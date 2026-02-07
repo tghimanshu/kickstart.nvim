@@ -84,6 +84,8 @@ require('lazy').setup({
   require 'plugins.colortheme',
   require 'plugins.comment',
   require 'plugins.copilot',
+  require 'plugins.debugger',
+  -- require 'plugins.debugger-mappings',
   require 'plugins.gitsigns',
   require 'plugins.harpoon',
   require 'plugins.indent-blankline',

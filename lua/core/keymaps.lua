@@ -107,3 +107,10 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Moves Line Up in Visual S
 -- Open Tmux Sessionizer
 vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 
+-- Debugger keymaps
+
+vim.keymap.set('n', '<leader>db', '<cmd>DapToggleBreakpoint<CR>', { desc = 'Toggle Breakpoint' })
+vim.keymap.set('n', '<leader>dr', '<cmd>DapContinue<CR>', { desc = 'Continue' })
+vim.keymap.set('n', '<leader>di', '<cmd>lua require("dap").step_into()<CR>', { desc = 'Step Into' })
+vim.keymap.set('n', '<leader>do', '<cmd>lua require("dap").step_over()<CR>', { desc = 'Step Over' })
+vim.keymap.set('n', '<leader>dO', '<cmd>lua require("dap").step_out()<CR>', { desc = 'Step Out' })
