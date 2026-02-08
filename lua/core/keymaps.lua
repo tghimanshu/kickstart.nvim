@@ -1,7 +1,8 @@
--- Set <space> as the leader key
--- See `:help mapleader`
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- Leader Key Configuration:
+-- Set <space> as the leader key for consistency and visual identification
+-- See `:help mapleader` for more information
+vim.g.mapleader = ' ' -- Sets the global leader key
+vim.g.maplocalleader = ' ' -- Sets the local leader key
 
 --  See `:help vim.keymap.set()`
 
@@ -9,7 +10,10 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- Clear highlights on searc
 
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }) -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+
+-- Terminal Mode Keymaps:
+-- This mapping simplifies exiting terminal mode by pressing <Esc> twice quickly. Note that this might not work in all terminal emulators or tmux setups. If it doesn't work, use the default <C-\><C-n> combination.
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode with <Esc><Esc>' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
