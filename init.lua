@@ -1,36 +1,13 @@
 --[[
 
-=====================================================================
-=========================== WELCOME ABOARD! =========================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||  Himanshu's NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
+   / / / /  _/  |/  /   |  / | / / ___// / / / / / ( ) ___/   / | / / |  / /  _/  |/  /
+  / /_/ // // /|_/ / /| | /  |/ /\__ \/ /_/ / / / /|/\__ \   /  |/ /| | / // // /|_/ / 
+ / __  // // /  / / ___ |/ /|  /___/ / __  / /_/ /  ___/ /  / /|  / | |/ // // /  / /  
+/_/ /_/___/_/  /_/_/  |_/_/ |_//____/_/ /_/\____/  /____/  /_/ |_/  |___/___/_/  /_/   
 
-  Himanshu's Kickstart.nvim
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example which will only take 10-15 minutes:
-    - https://learnxinyminutes.com/docs/lua/
-
-  After understanding a bit more about Lua, you can use `:help lua-guide` as a
-  reference for how Neovim integrates Lua.
-  - :help lua-guide
-  - (or HTML version): https://neovim.io/doc/user/lua-guide.html
 --]]
+
+-- https://patorjk.com/software/taag/#p=display&f=Slant&t=HIMANSHU%27S+NVIM&x=none&v=4&h=4&w=80&we=false
 
 -- Custom Imports
 require 'core.options'
@@ -41,16 +18,6 @@ vim.g.have_nerd_font = true -- Set to true if you have a Nerd Font installed and
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
-
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode See `:help vim.hl.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
-})
 
 -- [[ Install `lazy.nvim` plugin manager ]] See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -92,7 +59,7 @@ require('lazy').setup({
   require 'plugins.lualine',
   require 'plugins.misc',
   require 'plugins.neotree',
-  require 'plugins.noice',
+  -- require 'plugins.noice',
   require 'plugins.none-ls',
   require 'plugins.obsidian',
   require 'plugins.telescope',

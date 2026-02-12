@@ -65,20 +65,20 @@ return {
 
       vim.keymap.set('n', '<leader>ga', function()
         vim.cmd.Git 'add .'
-      end, opts)
+      end, { noremap = true, silent = true, desc = 'Git Add' })
 
       vim.keymap.set('n', '<leader>gc', function()
         vim.cmd.Git 'commit'
-      end, opts)
+      end, { noremap = true, silent = true, desc = 'Git Commit' })
 
-      vim.keymap.set('n', '<leader>gp', function()
+      vim.keymap.set('n', '<leader>gP', function()
         vim.cmd.Git 'push'
-      end, opts)
+      end, { noremap = true, silent = true, desc = 'Git Push' })
 
       -- rebase always
-      vim.keymap.set('n', '<leader>gP', function()
+      vim.keymap.set('n', '<leader>gp', function()
         vim.cmd.Git { 'pull', '--rebase' }
-      end, opts)
+      end, { noremap = true, silent = true, desc = 'Git Pull (rebase)' })
     end,
   },
   {
@@ -131,7 +131,11 @@ return {
 
       -- Document existing key chains
       spec = {
+        { '<leader>a', group = '[A]vante' },
+        { '<leader>c', group = '[C]ode Actions' },
         { '<leader>s', group = '[S]earch' },
+        { '<leader>d', group = '[D]iagnostics and Debugger' },
+        { '<leader>g', group = '[G]it Commands' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
