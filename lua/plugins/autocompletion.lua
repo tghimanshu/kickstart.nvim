@@ -1,3 +1,4 @@
+-- TODO: Migrate to blink.cmp once comparison is done and blink.cmp is stable.
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
   dependencies = {
