@@ -29,8 +29,6 @@ set -o vi
 
 . "$HOME/.local/share/../bin/env"
 export PATH=$PATH:/home/himanshu/.local/scripts
-bindkey -s '^f' 'tmux-sessionizer^M'
-bindkey -s '^f' 'tmux-sessionizer^M'
 
 HISTSIZE=5000
 HISTFILE="$HOME/.zsh_history"
@@ -56,7 +54,8 @@ alias vi='nvim'
 alias vim='nvim'
 alias c='clear'
 
-
 eval "$(fzf --zsh)"
 bindkey -s '^f' 'tmux-sessionizer^M'
-bindkey -s '^f' 'tmux-sessionizer^M'
+
+source ~/.local/share/omarchy/default/bash/aliases
+
