@@ -1,6 +1,8 @@
-const CACHE_NAME = 'lifeos-v1';
+const CACHE_NAME = 'lifeos-v2';
 const SHELL_FILES = [
   './index.html',
+  './style.css',
+  './app.js',
   './manifest.json',
 ];
 
