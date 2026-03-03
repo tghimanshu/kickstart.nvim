@@ -1,17 +1,27 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# wtf terminal dashboard config
-# Install:  go install github.com/wtfutil/wtf@latest   OR  yay -S wtfutil
+# WTF — Terminal Dashboard (TUI Layer of Life OS)
+#
+# Install:  yay -S wtfutil   OR  go install github.com/wtfutil/wtf@latest
 # Run:      wtf
-# Config:   ~/.config/wtf/config.yml   ← symlink this file there
+# Config:   ~/personal/dotfiles/wtf/.config/wtf/config.yml
+#           (stowed to ~/.config/wtf/ by install-dotfiles.sh)
+#
+# Keyboard shortcuts:
+#   Tab / Shift+Tab   → cycle between panels
+#   hjkl / arrows     → navigate within focused panel
+#   Enter             → open/action on selected item
+#   r                 → force refresh current panel
+#   /                 → search (in supported modules)
+#   ?                 → help
+#   Ctrl+c / q        → quit
 #
 # Layout (3 columns):
-#   LEFT   → Clock · System stats · Git repos
-#   CENTER → Tasks (Taskwarrior) · Todo scratch
+#   LEFT   → Clock · System stats · Git repos (~/personal)
+#   CENTER → Tasks (~/personal/notes/tasks.md) · Ollama health
 #   RIGHT  → GitHub activity · Weather
 # ─────────────────────────────────────────────────────────────────────────────
 
 wtf:
-  # Refresh the whole dashboard every 60 seconds
   refreshInterval: 60
   openFileUtil: "nvim"
 
@@ -61,8 +71,7 @@ modules:
     title: " System"
     type: "system"
 
-  # ── Git: recent repos you're working in ───────────────────────────────────
-  # Lists uncommitted changes across your projects
+  # ── Git: repos you're actively working in ─────────────────────────────────
   gitrepos:
     enabled: true
     position:
@@ -72,28 +81,16 @@ modules:
       width:  1
     refreshInterval: 60
     repositories:
-      # Add your active project paths here
-      - "~/Workspace"
-      - "~/personal"
-      - "~/notes"
+      - "~/personal/dotfiles"
+      - "~/personal/dev-env"
+      - "~/personal/claude-code-daily"
     title: " Git Repos"
     type: "gitrepos"
 
-  # ── Taskwarrior — your task list ──────────────────────────────────────────
-  # Requires: taskwarrior installed (sudo pacman -S task)
-  # Shows tasks due today + high priority
-  taskwarrior:
-    enabled: true
-    position:
-      top:    0
-      left:   1
-      height: 3
-      width:  1
-    refreshInterval: 60
-    title: " Tasks"
-    type: "taskwarrior"
-
-  # ── Todo scratch pad (quick notes, no setup needed) ───────────────────────
+  # ── Tasks — markdown checkbox list ────────────────────────────────────────
+  # Edit directly: nvim ~/personal/notes/tasks.md
+  # Press Enter on a task to open it in nvim (openFileUtil above)
+  # Keyboard: hjkl to navigate, Enter to check/uncheck, e to edit file
   todo:
     checkedIcon: "x"
     colors:
@@ -102,18 +99,36 @@ modules:
         fore: "black"
         back: "orange"
     enabled: true
-    filePath: "~/.config/wtf/todo.md"
+    filePath: "~/personal/notes/tasks.md"
+    position:
+      top:    0
+      left:   1
+      height: 3
+      width:  1
+    refreshInterval: 30
+    title: " Tasks"
+    type: "todo"
+
+  # ── Ollama health check ───────────────────────────────────────────────────
+  # Shows whether local Ollama LLM server is up (port 11434)
+  # and Open WebUI (port 3000)
+  ollama:
+    args:
+      - "-s"
+      - "http://localhost:11434"
+    cmd: "curl"
+    enabled: true
     position:
       top:    3
       left:   1
       height: 2
       width:  1
-    refreshInterval: 3600
-    title: "󰍖 Scratch Pad"
-    type: "todo"
+    refreshInterval: 30
+    title: " Ollama"
+    type: "cmdrun"
 
   # ── GitHub — open PRs, issues, reviews ────────────────────────────────────
-  # Requires: GITHUB_TOKEN env var (use your Student Pack PAT)
+  # Requires: GITHUB_TOKEN env var
   # Add to ~/.zshrc:  export GITHUB_TOKEN="ghp_xxxxxxxxxxxx"
   github:
     apiKey: "${GITHUB_TOKEN}"
@@ -125,17 +140,17 @@ modules:
       width:  1
     refreshInterval: 300
     repositories:
-      # Add repos you actively watch/contribute to
-      # - "owner/repo-name"
+      # Add repos you actively watch/contribute to:
+      # - "tghimanshu/dotfiles"
     showStats: true
     title: " GitHub"
     type: "github"
-    username: "himanshu"   # ← change to your GitHub username
+    username: "tghimanshu"
 
   # ── Weather ───────────────────────────────────────────────────────────────
-  # No API key needed for wttr.in
+  # No API key needed — uses wttr.in with IP geolocation
   weather:
-    city:            ""         # leave blank — uses IP geolocation automatically
+    city:            ""
     enabled:         true
     language:        "en"
     position:
@@ -143,7 +158,7 @@ modules:
       left:   2
       height: 2
       width:  1
-    refreshInterval: 1800       # 30 min
+    refreshInterval: 1800
     tempUnit:        "C"
     title:           " Weather"
     type:            "weather"

@@ -1,0 +1,92 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Homepage — Bookmarks
+# Docs: https://gethomepage.dev/configs/bookmarks/
+# ─────────────────────────────────────────────────────────────────────────────
+
+- AI & LLM:
+    - Gemini:
+        icon: si-googlegemini
+        href: https://gemini.google.com
+    - Perplexity:
+        icon: si-perplexity
+        href: https://www.perplexity.ai
+    - Hugging Face:
+        icon: si-huggingface
+        href: https://huggingface.co
+    - Google Colab:
+        icon: si-googlecolab
+        href: https://colab.research.google.com
+
+- Dev Environment:
+    - GitHub:
+        icon: si-github
+        href: https://github.com
+    - Copilot:
+        icon: si-githubcopilot
+        href: https://github.com/copilot
+    - Vercel:
+        icon: si-vercel
+        href: https://vercel.com/dashboard
+    - Railway:
+        icon: si-railway
+        href: https://railway.app/dashboard
+    - Render:
+        icon: si-render
+        href: https://dashboard.render.com
+
+- Learning:
+    - LeetCode:
+        icon: si-leetcode
+        href: https://leetcode.com
+    - Exercism:
+        icon: si-exercism
+        href: https://exercism.org/dashboard
+    - Anki:
+        icon: si-anki
+        href: https://ankiweb.net
+    - roadmap.sh:
+        abbr: RM
+        href: https://roadmap.sh
+    - CS50x:
+        abbr: CS
+        href: https://cs50.harvard.edu/x
+    - MIT OCW:
+        abbr: MT
+        href: https://ocw.mit.edu
+
+- Documentation:
+    - DevDocs:
+        abbr: DD
+        href: https://devdocs.io
+    - Neovim:
+        icon: si-neovim
+        href: https://neovim.io/doc/user/
+    - MDN:
+        icon: si-mdnwebdocs
+        href: https://developer.mozilla.org
+    - Python:
+        icon: si-python
+        href: https://docs.python.org/3
+    - cppreference:
+        icon: si-cplusplus
+        href: https://en.cppreference.com
+    - Taskwarrior:
+        abbr: TW
+        href: https://taskwarrior.org/docs
+
+- Utilities:
+    - Excalidraw:
+        icon: si-excalidraw
+        href: https://excalidraw.com
+    - RegExr:
+        abbr: RE
+        href: https://regexr.com
+    - JSON Crack:
+        abbr: JS
+        href: https://jsoncrack.com
+    - Crontab Guru:
+        abbr: CR
+        href: https://crontab.guru
+    - Explainshell:
+        icon: si-gnubash
+        href: https://explainshell.com

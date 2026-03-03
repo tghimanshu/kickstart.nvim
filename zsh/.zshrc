@@ -59,3 +59,5 @@ bindkey -s '^f' 'tmux-sessionizer^M'
 
 source ~/.local/share/omarchy/default/bash/aliases
 
+source $HOME/.config/taskwarrior/taskrc_aliases.sh
+alias wtf='wtfutil'

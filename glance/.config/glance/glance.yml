@@ -1,12 +1,32 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Glance — Personal Life Dashboard
-# Install (Docker):
+#
+# Install (Docker):  run ~/personal/dev-env/omarchy/install-glance.sh
+# OR manually:
 #   docker run -d -p 4000:8080 \
 #     -v ~/.config/glance:/app/config \
-#     --name glance glanceapp/glance
+#     --name glance --restart unless-stopped glanceapp/glance
+#
+# Config location:  ~/personal/dotfiles/glance/.config/glance/glance.yml
+#                   (stowed to ~/.config/glance/ by install-dotfiles.sh)
 #
 # Docs: https://github.com/glanceapp/glance
 # Access: http://localhost:4000
+#
+# Keyboard navigation:
+#   Glance has NO built-in keyboard shortcuts.
+#   Install Vimium browser extension for full keyboard control:
+#     Firefox: https://addons.mozilla.org/en-US/firefox/addon/vimium-ff/
+#     Chrome:  https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb
+#
+#   With Vimium active on http://localhost:4000:
+#     f           → show link hints (press letter to follow link)
+#     F           → open link in new tab
+#     j/k         → scroll down/up
+#     H/L         → back/forward
+#     /           → find on page
+#     gi          → focus first input
+#     ?           → show all Vimium shortcuts
 # ─────────────────────────────────────────────────────────────────────────────
 
 server:
@@ -19,9 +39,10 @@ theme:
   negative-color: 0 72 63
 
 pages:
+  # ── PAGE 1: Life OS ────────────────────────────────────────────────────────
   - name: Life OS
     columns:
-      # ── LEFT COLUMN ──────────────────────────────────────────────────────
+      # ── LEFT COLUMN ────────────────────────────────────────────────────────
       - size: small
         widgets:
           - type: clock
@@ -35,12 +56,12 @@ pages:
           - type: monitor
             title: Local Services
             sites:
-              - title: Open WebUI
+              - title: Open WebUI (Ollama)
                 url: http://localhost:3000
                 icon: si:ollama
-              - title: Glance
+              - title: Glance Dashboard
                 url: http://localhost:4000
-                icon: si:glance
+                icon: si:statuspage
 
           - type: bookmarks
             title: Dev Environment
@@ -68,7 +89,7 @@ pages:
                     url: https://dashboard.render.com
                     icon: si:render
 
-      # ── MIDDLE COLUMN ─────────────────────────────────────────────────────
+      # ── MIDDLE COLUMN ──────────────────────────────────────────────────────
       - size: full
         widgets:
           - type: bookmarks
@@ -81,6 +102,9 @@ pages:
                     icon: si:ollama
               - title: Cloud
                 links:
+                  - title: ChatGPT
+                    url: https://chatgpt.com
+                    icon: si:openai
                   - title: Gemini
                     url: https://gemini.google.com
                     icon: si:googlegemini
@@ -120,7 +144,7 @@ pages:
                     url: https://ocw.mit.edu
                     icon: di:mit
 
-      # ── RIGHT COLUMN ──────────────────────────────────────────────────────
+      # ── RIGHT COLUMN ───────────────────────────────────────────────────────
       - size: small
         widgets:
           - type: bookmarks
@@ -143,9 +167,6 @@ pages:
                   - title: cppreference
                     url: https://en.cppreference.com
                     icon: si:cplusplus
-                  - title: Taskwarrior
-                    url: https://taskwarrior.org/docs
-                    icon: si:taskwarrior
 
           - type: bookmarks
             title: Utilities
@@ -167,3 +188,75 @@ pages:
                   - title: Explainshell
                     url: https://explainshell.com
                     icon: si:gnubash
+
+  # ── PAGE 2: Notes & Feeds ──────────────────────────────────────────────────
+  - name: Notes & Feeds
+    columns:
+      # ── LEFT ───────────────────────────────────────────────────────────────
+      - size: small
+        widgets:
+          - type: clock
+            hour-format: 24h
+            timezones:
+              - timezone: Asia/Kolkata
+                label: IST
+
+          - type: bookmarks
+            title: Quick Links
+            groups:
+              - title: My Stuff
+                links:
+                  - title: GitHub Profile
+                    url: https://github.com/tghimanshu
+                    icon: si:github
+                  - title: Dotfiles
+                    url: https://github.com/tghimanshu/dotfiles
+                    icon: si:git
+              - title: Social
+                links:
+                  - title: X / Twitter
+                    url: https://x.com
+                    icon: si:x
+                  - title: YouTube
+                    url: https://youtube.com
+                    icon: si:youtube
+
+      # ── MIDDLE ─────────────────────────────────────────────────────────────
+      - size: full
+        widgets:
+          - type: hacker-news
+
+          - type: reddit
+            subreddit: neovim
+            show-thumbnails: false
+
+      # ── RIGHT ──────────────────────────────────────────────────────────────
+      - size: small
+        widgets:
+          - type: monitor
+            title: Local Services
+            sites:
+              - title: Open WebUI
+                url: http://localhost:3000
+                icon: si:ollama
+              - title: Glance
+                url: http://localhost:4000
+                icon: si:statuspage
+
+          - type: bookmarks
+            title: Communities
+            groups:
+              - title: Reddit
+                links:
+                  - title: r/vim
+                    url: https://reddit.com/r/vim
+                    icon: si:reddit
+                  - title: r/archlinux
+                    url: https://reddit.com/r/archlinux
+                    icon: si:archlinux
+                  - title: r/Python
+                    url: https://reddit.com/r/Python
+                    icon: si:python
+                  - title: r/selfhosted
+                    url: https://reddit.com/r/selfhosted
+                    icon: si:reddit
