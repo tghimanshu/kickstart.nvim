@@ -114,7 +114,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
         -- Shortcut for searching your Neovim configuration files
         vim.keymap.set('n', '<leader>sn', function()
-            builtin.find_files { cwd = '~/personal/kickstart.nvim/' }
+            builtin.find_files { cwd = '~/personal/dotfiles/nvim/' }
         end, { desc = '[S]earch [N]eovim files' })
     end,
 }

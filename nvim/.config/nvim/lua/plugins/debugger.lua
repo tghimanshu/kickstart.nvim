@@ -28,7 +28,9 @@ return {
       'mfussenegger/nvim-dap',
     },
     opts = {
-      handlers = {},
+      -- handlers = nil uses mason-nvim-dap's default handlers, which automatically
+      -- configure adapters for all mason-installed debug adapters (debugpy, codelldb, etc.)
+      handlers = nil,
     },
   },
   {

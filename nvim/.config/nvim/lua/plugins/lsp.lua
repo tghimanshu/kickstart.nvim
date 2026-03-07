@@ -132,6 +132,30 @@ return {
           },
         },
 
+        -- Rust
+        -- rust-analyzer: full Rust LSP (hover, inlay hints, cargo integration)
+        -- codelldb (installed via mason-tool-installer) handles debugging
+        rust_analyzer = {
+          settings = {
+            ['rust-analyzer'] = {
+              checkOnSave = { command = 'clippy' },
+              inlayHints  = { enable = true },
+            },
+          },
+        },
+
+        -- Go
+        -- gopls: official Go LSP (completions, imports, type-checking, renaming)
+        gopls = {
+          settings = {
+            gopls = {
+              analyses  = { unusedparams = true },
+              staticcheck = true,
+              gofumpt   = true,
+            },
+          },
+        },
+
         -- Infrastructure / Config
         dockerls   = {},
         sqlls      = {},
@@ -168,6 +192,8 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua',           -- Lua formatter
         'codelldb',         -- C/C++/Rust debugger
+        'gofumpt',          -- Go formatter (stricter gofmt)
+        'goimports',        -- Go import organiser
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

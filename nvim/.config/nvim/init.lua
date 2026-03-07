@@ -50,6 +50,7 @@ require('lazy').setup({
   require 'plugins.bufferline',
   require 'plugins.colortheme',
   require 'plugins.comment',
+  require 'plugins.conform',
   require 'plugins.copilot',
   require 'plugins.debugger',
   require 'plugins.gitsigns',
@@ -59,25 +60,13 @@ require('lazy').setup({
   require 'plugins.lualine',
   require 'plugins.misc',
   require 'plugins.neotree',
-  -- require 'plugins.noice',
+  require 'plugins.noice',
   require 'plugins.none-ls',
   require 'plugins.obsidian',
   require 'plugins.telescope',
   require 'plugins.treesitter',
 
-  -- LSP Plugins
-  {
-    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    opts = {
-      library = {
-        -- Load luvit types when the `vim.uv` word is found
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-      },
-    },
-  },
+  -- NOTE: lazydev is defined in plugins/lsp.lua — do not duplicate here
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
