@@ -1,0 +1,52 @@
+[user]
+	name  = Himanshu Gohil
+	email = himanshugohil234@gmail.com
+
+[core]
+	editor     = nvim
+	autocrlf   = input        # keep LF on commit, don't touch on checkout
+	whitespace = fix           # fix trailing whitespace on commit
+
+[init]
+	defaultBranch = master
+
+[pull]
+	rebase = false             # merge-based pull (explicit rebase with git pull --rebase)
+
+[push]
+	default      = current     # push to same-name remote branch automatically
+	autoSetupRemote = true     # auto set upstream on first push
+
+[merge]
+	conflictstyle = diff3      # show base + ours + theirs in conflict markers
+
+[diff]
+	algorithm  = histogram     # better diff for code (fewer confusing hunks)
+	colorMoved = default       # colour moved lines differently from added/removed
+
+[color]
+	ui = auto
+
+[alias]
+	# Log
+	lg  = log --oneline --graph --decorate --all
+	ll  = log --oneline --decorate -20
+	lp  = log --patch --follow
+
+	# Status / diff
+	st  = status --short --branch
+	d   = diff
+	ds  = diff --staged
+
+	# Branch management
+	co  = checkout
+	br  = branch --sort=-committerdate
+	sw  = switch
+
+	# Convenience
+	undo = reset HEAD~1 --mixed    # undo last commit, keep changes staged
+	wip  = commit -am "wip"        # quick save in-progress work
+	unwip = reset HEAD~1 --mixed   # pop a wip commit
+
+	# Remotes
+	pf  = push --force-with-lease  # safer force push (fails if remote changed)
