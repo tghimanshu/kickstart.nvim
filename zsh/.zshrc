@@ -58,3 +58,4 @@ source $HOME/.config/taskwarrior/taskrc_aliases.sh
 alias wtf='wtfutil'
 
 source ~/.local/share/zsh/rc
+export PATH=$PATH:/home/himanshu/.local/scripts

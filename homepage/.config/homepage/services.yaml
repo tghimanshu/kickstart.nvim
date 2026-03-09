@@ -2,3 +2,19 @@
 # Homepage — Services
 # Docs: https://gethomepage.dev/configs/services/
 # ─────────────────────────────────────────────────────────────────────────────
+
+- AI:
+    - Open WebUI:
+        href: http://webui.hub.home
+        description: Local LLM chat interface
+        icon: ollama.svg
+    - Ollama API:
+        href: http://ollama.hub.home
+        description: Ollama inference API
+        icon: ollama.svg
+
+- Network:
+    - AdGuard Home:
+        href: http://adguard.hub.home
+        description: Network-wide DNS ad blocker
+        icon: adguard-home.svg

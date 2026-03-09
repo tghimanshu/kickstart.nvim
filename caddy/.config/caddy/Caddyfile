@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Caddyfile — hub.home reverse proxy
+# Docs: https://caddyserver.com/docs/caddyfile
+#
+# Architecture:
+#   - AdGuard Home resolves *.hub.home → <LAN IP> (this machine)
+#   - Caddy listens on port 80, routes by hostname to each backend
+#   - Caddy runs on the host network and proxies to stable localhost ports
+#   - HTTP only on LAN (no HTTPS needed for internal services)
+#
+# Services:
+#   hub.home          → startpage               (host: port 4000, python http.server)
+#   webui.hub.home    → Open WebUI / LLM chat   (host: port 3000)
+#   adguard.hub.home  → AdGuard Home web UI     (host: port 3100)
+#   ollama.hub.home   → Ollama API              (host: port 11434)
+# ─────────────────────────────────────────────────────────────────────────────
+
+{
+    # Disable automatic HTTPS — we're on a private LAN with a .home TLD
+    # that can't get real ACME certs. HTTP is fine for internal services.
+    auto_https off
+
+    # Admin API — localhost only
+    admin localhost:2019
+}
+
+# ── Startpage ─────────────────────────────────────────────────────────────────
+# Served by python3 http.server on the host (not a container)
+http://hub.home {
+    reverse_proxy 127.0.0.1:4000
+}
+
+# ── Open WebUI (LLM chat interface) ──────────────────────────────────────────
+# Open WebUI runs on the host network and listens on port 3000
+http://webui.hub.home {
+    reverse_proxy 127.0.0.1:3000
+}
+
+# ── AdGuard Home web UI ───────────────────────────────────────────────────────
+# AdGuard Home should publish its web UI on host port 3100.
+http://adguard.hub.home {
+    reverse_proxy 127.0.0.1:3100
+}
+
+# ── Ollama API ────────────────────────────────────────────────────────────────
+# Ollama runs as a systemd user service on the host, port 11434
+# Useful for hitting the API from other LAN devices or scripts
+http://ollama.hub.home {
+    reverse_proxy 127.0.0.1:11434
+}
