@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Get the commandline argument
+
+if [ -z "$1" ]; then
+    echo "Usage: np <project-name>"
+    exit 1
+fi
+
+# Temp Change Directory to ~/personal
+cd ~/personal
+gh repo clone $1
+cd $1
+tmux new-session -d -s $1
