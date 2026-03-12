@@ -10,8 +10,8 @@
 return {
   'stevearc/conform.nvim',
   event = { 'BufWritePre' },
-  cmd   = { 'ConformInfo' },
-  keys  = {
+  cmd = { 'ConformInfo' },
+  keys = {
     {
       '<leader>f',
       function()
@@ -28,10 +28,10 @@ return {
     -- C/C++ is excluded because clang-format opinions vary wildly per project;
     -- use <leader>f manually when needed.
     format_on_save = function(bufnr)
-      local disable = { c = true, cpp = true }
-      if disable[vim.bo[bufnr].filetype] then
-        return nil
-      end
+      -- local disable = { c = true, cpp = true }
+      -- if disable[vim.bo[bufnr].filetype] then
+      --   return nil
+      -- end
       return { timeout_ms = 1000, lsp_format = 'fallback' }
     end,
 
@@ -43,30 +43,30 @@ return {
       python = { 'ruff_fix', 'ruff_format' },
 
       -- Web
-      javascript        = { 'prettier' },
-      typescript        = { 'prettier' },
-      javascriptreact   = { 'prettier' },
-      typescriptreact   = { 'prettier' },
-      html              = { 'prettier' },
-      css               = { 'prettier' },
-      json              = { 'prettier' },
-      yaml              = { 'prettier' },
-      markdown          = { 'prettier' },
+      javascript = { 'prettier' },
+      typescript = { 'prettier' },
+      javascriptreact = { 'prettier' },
+      typescriptreact = { 'prettier' },
+      html = { 'prettier' },
+      css = { 'prettier' },
+      json = { 'prettier' },
+      yaml = { 'prettier' },
+      markdown = { 'prettier' },
 
       -- Shell
-      sh   = { 'shfmt' },
+      sh = { 'shfmt' },
       bash = { 'shfmt' },
-      zsh  = { 'shfmt' },
+      zsh = { 'shfmt' },
 
       -- Go: goimports (runs gofmt + organises imports), then gofumpt for stricter style
       go = { 'goimports', 'gofumpt' },
 
       -- Terraform
-      terraform    = { 'terraform_fmt' },
+      terraform = { 'terraform_fmt' },
       ['terraform-vars'] = { 'terraform_fmt' },
 
       -- C/C++ — manual only (excluded from format_on_save above)
-      c   = { 'clang_format' },
+      c = { 'clang_format' },
       cpp = { 'clang_format' },
     },
 
