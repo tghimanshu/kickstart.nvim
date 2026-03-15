@@ -1095,7 +1095,13 @@ return {
         end,
         desc = 'Notes: Vault: stage all, commit and push',
       },
-      { '<leader>ngl', function() require('telescope.builtin').git_commits { cwd = vim.fn.expand '~/personal/notes' } end, desc = 'Notes: Vault: git log in Telescope' },
+      {
+        '<leader>ngl',
+        function()
+          require('telescope.builtin').git_commits { cwd = vim.fn.expand '~/personal/notes' }
+        end,
+        desc = 'Notes: Vault: git log in Telescope',
+      },
       {
         '<leader>n<leader>',
         function()
